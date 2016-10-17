@@ -10,9 +10,7 @@
 #include <pca9532d.h>
 #include <conf_twi.h>
 
-uint8_t data[DATA_LENGTH] = {
-	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
-};
+int data[DATA_LENGTH];
 
 uint8_t ls_address;
 uint8_t pwm_addr;
@@ -90,11 +88,28 @@ void write_to_slave(){
 	twi_master_write(&TWI_MASTER, &packet);	
 }
 
+void test_package_creating()
+{
+	pca9532d_set_prescaler(0);
+	set_autoincrementation(prsc_addr);
+}
+
 int main(void)
 {
 	sysclk_init();
 	board_init();
 	setup_master_options();
+	pca9532d_set_prescaler(0);
+	set_autoincrementation(prsc_addr);
+	data[0] = prsc_addr;
+	data[1] = 0x97;
+	data[2] = 0x80;
+	data[3] = 0x00;
+	data[4] = 0x40;
+	data[5] = 0x55;
+	data[6] = 0xFA;
+	data[7] = 0x00;
+	data[8] = 0x00;
 	write_to_slave();
 }
 

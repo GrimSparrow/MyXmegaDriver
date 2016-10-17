@@ -15,7 +15,7 @@
 #define TWI_SPEED        50000
 #define TWI_MASTER_ADDR  0x50
 #define TWI_SLAVE_ADDR   0x60
-#define DATA_LENGTH      8
+#define DATA_LENGTH      9
 
 
 
