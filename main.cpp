@@ -88,17 +88,8 @@ void write_to_slave(){
 	twi_master_write(&TWI_MASTER, &packet);	
 }
 
-void test_package_creating()
-{
-	pca9532d_set_prescaler(0);
-	set_autoincrementation(prsc_addr);
-}
-
-int main(void)
-{
-	sysclk_init();
-	board_init();
-	setup_master_options();
+void test_package_creating(int *data)
+{	
 	pca9532d_set_prescaler(0);
 	set_autoincrementation(prsc_addr);
 	data[0] = prsc_addr;
@@ -110,6 +101,16 @@ int main(void)
 	data[6] = 0xFA;
 	data[7] = 0x00;
 	data[8] = 0x00;
+}
+
+int main(void)
+{
+	sysclk_init();
+	board_init();
+	
+	setup_master_options();
+	
+	test_package_creating(data);
 	write_to_slave();
 }
 
